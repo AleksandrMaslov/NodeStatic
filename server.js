@@ -6,14 +6,14 @@ const express = require('express');
 const cors = require('cors');
 const compression = require('compression')
 
-const PORT = 5173;
+const PORT = 80;
 
 const app = express();
 app.use(cors())
 app.use(compression())
 
 app.use('/PSViewerDemo',express.static(path.join(__dirname, 'public')));
-app.use('/PSViewerDemo/*',express.static(path.join(__dirname, 'public')));
+// app.use('/PSViewerDemo/*',express.static(path.join(__dirname, 'public')));
 
 app.use(function(req, res) {
   res.status(400);
