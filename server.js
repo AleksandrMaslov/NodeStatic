@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const http = require('http');
 const https = require('https');
 
 const express = require('express');
@@ -20,16 +21,20 @@ app.use(function(_req, res) {
   return res.send(`<h1>404 Error: Resource not found</h1>`);
 });
 
-app.listen(PORT, () => {
-  console.log(`HTTP server is listening PORT: ${PORT}`);
-})
+// app.listen(PORT, () => {
+//   console.log(`HTTP server is listening PORT: ${PORT}`);
+// })
 
-// // HTTPS Server
-// const httpsServer = https.createServer({
-//   key: fs.readFileSync('/etc/letsencrypt/live/my_api_url/privkey.pem'),
-//   cert: fs.readFileSync('/etc/letsencrypt/live/my_api_url/fullchain.pem'),
-// }, app);
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer({
+  key: fs.readFileSync('/etc/letsencrypt/live/drive.synsys.co/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/drive.synsys.co/fullchain.pem'),
+}, app);
 
-// httpsServer.listen(PORT, () => {
-//     console.log(`HTTPS Server running on port ${PORT}`);
-// });
+httpServer.listen(80, () => {
+    console.log('HTTP Server is listening PORT: 80');
+});
+
+httpsServer.listen(443, () => {
+    console.log('HTTPS Server is listening PORT: 443');
+});
