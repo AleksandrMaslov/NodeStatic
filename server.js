@@ -13,14 +13,7 @@ app.use(cors())
 app.use(compression())
 
 app.use('/',express.static(path.join(__dirname, 'public')));
-
 app.use('/*',express.static(path.join(__dirname, 'public')));
-
-// app.use('/**/*',express.static(path.join(__dirname, 'public')));
-
-// app.all('*', function(_req, res) { 
-//   res.redirect('/index.html'); 
-// });
 
 app.use(function(_req, res) {
   res.status(400);
